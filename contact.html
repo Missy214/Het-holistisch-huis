@@ -634,8 +634,8 @@
 
     <div class="contact-form-full">
       <h2>Plan een kennismaking</h2>
-      <p>Vul het formulier in — we nemen binnen twee werkdagen contact met je op.</p>
-      <form onsubmit="event.preventDefault(); alert('Bedankt voor je bericht — dit formulier is nog niet gekoppeld aan e-mail.');">
+      <p>Vul het formulier in — je e-mailapp opent automatisch met alles al ingevuld, je hoeft alleen nog op versturen te tikken.</p>
+      <form id="contact-form" onsubmit="return sendContactForm(event);">
         <div class="form-row">
           <div>
             <label for="fname">Voornaam</label>
@@ -670,11 +670,38 @@
           <textarea id="msg" rows="5" required></textarea>
         </div>
         <button type="submit">Verstuur aanvraag</button>
-        <p class="form-note">Je gegevens worden alleen gebruikt om contact met je op te nemen.</p>
+        <p class="form-note">Bij het versturen opent je e-mailapp met een kant-en-klaar bericht naar Het Holistisch Huis.</p>
       </form>
     </div>
 
   </div>
+
+  <script>
+    function sendContactForm(event){
+      event.preventDefault();
+      var fname = document.getElementById('fname').value;
+      var lname = document.getElementById('lname').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      var kuur = document.getElementById('kuur').value;
+      var msg = document.getElementById('msg').value;
+
+      var subject = "Aanvraag kennismaking - " + fname + " " + lname;
+      var body =
+        "Naam: " + fname + " " + lname + "\n" +
+        "E-mailadres: " + email + "\n" +
+        "Telefoonnummer: " + (phone || "-") + "\n" +
+        "Interesse: " + kuur + "\n\n" +
+        "Bericht:\n" + msg;
+
+      var mailtoLink = "mailto:holistischhuis@icloud.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mailtoLink;
+      return false;
+    }
+  </script>
 
   <div class="disclaimer">
     <p><span class="disclaimer-label">Disclaimer:</span> er wordt binnen Het Holistisch Huis uitsluitend complementair gewerkt, als aanvulling op de reguliere gezondheidszorg. De beheerder van deze website is geen arts en stelt geen medische diagnoses, noch worden er medische handelingen verricht. Bij gezondheidsproblemen of -klachten wordt u steeds doorverwezen naar uw huisarts of behandelend geneesheer. De beheerder van deze website aanvaardt geen aansprakelijkheid voor eventuele ongevallen voortvloeiend uit het gebruik van de aangeboden diensten.</p>
