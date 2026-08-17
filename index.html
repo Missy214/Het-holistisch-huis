@@ -390,14 +390,24 @@
     display:grid; grid-template-columns:0.8fr 1.2fr; gap:64px; align-items:center;
   }
   .over-visual{
-    background:var(--bg-soft);
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:40px;
+    position:relative;
     display:flex; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .over-visual::before{
+    content:"";
+    position:absolute;
+    width:82%;
+    aspect-ratio:1;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(110,120,86,0.16) 0%, rgba(161,92,52,0.08) 55%, rgba(246,241,231,0) 75%);
+    filter:blur(2px);
+    z-index:0;
   }
   .over-visual img{
-    max-width:200px;
+    position:relative;
+    z-index:1;
+    max-width:340px;
     width:100%;
     aspect-ratio:1;
     border-radius:50%;
@@ -451,7 +461,7 @@
   .since-line span.rule{flex:0 0 40px; height:1px; background:var(--line-strong);}
   @media (max-width:860px){
     .over-inner{grid-template-columns:1fr;}
-    .over-visual{order:-1; max-width:260px; margin:0 auto;}
+    .over-visual{order:-1; max-width:320px; margin:0 auto;}
   }
 
   /* ---------- CONTACT CTA / FOOTER ---------- */
